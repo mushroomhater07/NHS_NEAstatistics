@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <table border="1px solid #000">
+        <thead>
+          <th>levelID</th>
+          <th>Description</th>
+          <th>Best Score</th>
+          <th>player</th>
+          <th>Best Time</th>
+          <th>player</th>
+          <th>number of player</th>
+          <th>average score</th>
+          <th>average time</th>
+        </thead>
+        <tbody id="place-here"></tbody>
+      </table>
+      <script>
+       $( document ).ready(()=>{
+          console.log("hi")
+            $.post('/getData', {detail:1}, function(result) {
+                let res = '';
+                result.forEach(data => {
+                    res += `<tr>
+                      <td>${data.levelID}</td>
+                      <td>${data.levelName}</td>
+                      <td>${data.Best_Score}</td>
+                      <td>${data.Best_score}</td>
+                      <td>${data.Best_Time}</td>
+                      <td>${data.Best_time}</td>
+                      <td>${data.no_player}</td>
+                      <td>${data.AVG_Score}</td>
+                      <td>${data.AVG_Time}</td>
+                      </tr>`
+                })
+                $('#place-here').html(res)
+                });
+        })
+        
+       
+      </script>
+</body>
+</html>

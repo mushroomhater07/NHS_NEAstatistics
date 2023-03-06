@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <table  border="1px solid #000">
+        <thead>
+          <th>player\Level</th>
+          <th>3</th>
+          <th>4</th>
+          <th>5</th>
+          <th>6</th>
+          <th>7</th>
+          <th>8</th>
+          <th>9</th>
+        </thead>
+        <tbody id="place-here"></tbody>
+      </table>
+      <script>
+       $( document ).ready(()=>{
+            $.post('/getData', {detail:0}, function(result) {
+                let res = '';
+                result.forEach(data => {
+                    res += `<tr>
+                      <td>${data.username}</td>
+                      <td>${data.Level_3}</td>
+                      <td>${data.Level_4}</td>
+                      <td>${data.Level_5}</td>
+                      <td>${data.Level_6}</td>
+                      <td>${data.Level_7}</td>
+                      <td>${data.Level_8}</td>
+                      <td>${data.Level_9}</td>
+                      </tr>`
+                })
+                $('#place-here').html(res)
+                });
+        })
+        
+       
+      </script>
+</body>
+</html>

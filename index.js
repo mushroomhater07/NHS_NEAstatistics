@@ -1,7 +1,8 @@
+const { Console } = require('console');
 var express = require('express')
 const mysql = require('mysql2');
 const db = mysql.createConnection({
-    host: "fact.shalevportal.ml",
+    host: "192.168.0.252",
       port: 2086,
       user: "hey",
       password: "Ss12345678*",
@@ -28,19 +29,20 @@ GROUP BY pl.username;`,
 l.levelID,
 COUNT(p.progressID) AS no_player, -- need count for item only
 MAX(p.score) AS Best_Score,
-  (SELECT pl.username FROM Progress p, Player pl 
+(SELECT pl.username FROM Progress p, Player pl 
  WHERE p.playerID = pl.playerID AND p.score = 
-   (SELECT MAX(score) FROM Progress p WHERE p.levelID = l.levelID)) AS Best_score,
- MIN(CASE WHEN l.levelID BETWEEN 6 AND 12 THEN p.time ELSE 100000 END) AS Best_Time,
-  (SELECT pl.username FROM Progress p, Player pl 
+   (SELECT MAX(score) FROM Progress p2 WHERE p2.levelID = l.levelID LIMIT 1)) AS Best_score,
+MIN(CASE WHEN l.levelID BETWEEN 6 AND 12 THEN p.time ELSE 100000 END) AS Best_Time,
+(SELECT pl.username FROM Progress p, Player pl 
  WHERE p.playerID = pl.playerID AND p.time = 
-   (SELECT MIN(time) FROM Progress p WHERE p.levelID = l.levelID)) AS Best_time,
+   (SELECT MIN(time) FROM Progress p2 WHERE p2.levelID = l.levelID LIMIT 1)) AS Best_time,
 AVG(p.score) AS AVG_Score,
 AVG(p.time) AS AVG_Time
 FROM Player pl,Progress p,Level l
 WHERE p.levelID = l.levelID AND p.playerID = pl.playerID
 GROUP BY l.levelName
 ORDER BY l.levelID;
+
   `]
   
 app.use('/js',express.static(__dirname+'/web'));
@@ -53,6 +55,7 @@ app.get('/register',(req,res)=>{
 })
 app.get('/pivot',async(req,res)=>{
   res.sendFile(__dirname+"/web/pivot.html")
+  generateHash("Ss12354678")
 })
 app.get('/cross',async(req,res)=>{
   res.sendFile(__dirname+"/web/cross.html")
@@ -60,8 +63,13 @@ app.get('/cross',async(req,res)=>{
 app.post('/registerData',async(req,res)=>{
   var pass = generateHash(req.body.pass);
   var sql = `INSERT INTO Player(email, hash, salt, username) VALUES ('${req.body.email}','${pass.hash}',${pass.salt},'${req.body.user}');`;
-  console.log(sql)
+try {
   await db.promise().query(sql);
+  res.send("0")
+} catch (error) {console.log(error)
+  res.send("1")
+}
+  
   // "SELECT password FROM Player WHERE username = '"+req.body.username+"' AND password = '"+req.body.password
 })
 
@@ -77,7 +85,7 @@ function generateHash(password) {
   const salt = Math.floor(Math.random() * 1000000);
 for (let index = 0; index < password.length; index++) {
   const element = password[index];
-    hash += element.charCodeAt(0)* Math.pow(10,count) + salt;
+    hash += element.charCodeAt(0)* Math.pow(10,count-index) + salt;
 }
   return {"hash":hash.toString(16),"salt": salt};
 }

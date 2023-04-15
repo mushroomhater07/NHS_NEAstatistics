@@ -1,7 +1,7 @@
 // /^[a-zA-Z0-9]+$/;
 // /.*/i
 $( document ).ready(()=>{
-    NBP.init("mostcommon_500", "/js", true);
+    // NBP.init("mostcommon_500", "/js", true);
     $("form").submit((e)=>{
         e.preventDefault();
         var username = $("input[name='username']").val().trim().replace(/_/g, "").substr(0,20).toLowerCase();
@@ -24,7 +24,13 @@ $( document ).ready(()=>{
                 err("Password is too common")
             }else
             {   
-                $.post('/registerData', {'user': username, 'email':email, 'pass':password}, function(result) {
+                $.post('/registerData', {'user': username, 'email':email, 'pass':password}, function(result) {              	
+					console.log(result);
+					if (result == "0") {
+					  window.location = "/js/done.html"
+					}else if (result == "1") {
+					  err("Duplicate email or username")
+					}
                 })
             }
         }        )

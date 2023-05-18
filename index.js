@@ -2,11 +2,11 @@ const { Console } = require('console');
 var express = require('express')
 const mysql = require('mysql2');
 const db = mysql.createConnection({
-    host: "192.168.0.252",
-      port: 2086,
-      user: "hey",
-      password: "Ss12345678*",
-      database: 'unity',
+    host: "sql7.freesqldatabase.com",
+      port: 3306,
+      user: "sql7619301",
+      password: "2kM3dH4h7x",
+      database: 'sql7619301',
       multipleStatements: true,
       debug: false,
 })

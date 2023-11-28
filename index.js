@@ -2,7 +2,7 @@ const { Console } = require('console');
 var express = require('express')
 const mysql = require('mysql2');
 const db = mysql.createConnection({
-    host: "php.shalev.eu.org",
+    host: "php.shalevportal.eu.org",
       port: 2086,
       user: "github",
       password: "Ss123456789*",

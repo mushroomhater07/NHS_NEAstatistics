@@ -81,7 +81,7 @@ app.post('/getData',async(req, res)=> {
     const result = await db.promise().query(sqlquery[req.body.detail])
       res.send(result[0])
 })
-app.listen(80,()=>{//console.log(process.env.USER)
+app.listen(3000,()=>{//console.log(process.env.USER)
   });
 
 function generateHash(password) {

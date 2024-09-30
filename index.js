@@ -1,12 +1,15 @@
-const { Console } = require('console');
+'use strict';
 var express = require('express')
 const mysql = require('mysql2');
+
+require('dotenv').config()
+
 const db = mysql.createConnection({
-    host: "php.shalevportal.eu.org",
-      port: 2086,
-      user: "github",
-      password: "Ss123456789*",
-      database: 'unity',
+    host: process.env.HOST1,
+      port: process.env.PORT1,
+      user: process.env.USER1,
+      password: process.env.PASS1,
+      database: process.env.DTBS1,
       multipleStatements: true,
       debug: false,
 })
@@ -78,7 +81,8 @@ app.post('/getData',async(req, res)=> {
     const result = await db.promise().query(sqlquery[req.body.detail])
       res.send(result[0])
 })
-app.listen(3000);
+app.listen(80,()=>{//console.log(process.env.USER)
+  });
 
 function generateHash(password) {
   var hash = 0, count =10;

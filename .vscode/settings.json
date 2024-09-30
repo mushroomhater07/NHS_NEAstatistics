@@ -1,0 +1,18 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "210.17.224.194",
+            "port": 2086,
+            "driver": "MariaDB",
+            "name": "210.17.224.194",
+            "database": "unity",
+            "username": "new",
+            "password": "Ss123546789*"
+        }
+    ]
+}

@@ -1,3 +1,4 @@
 # Express JS on render
 
-https://maze.onrender.com/pivot
+https://nhs-ne-astatistics.vercel.app
+https://nhs-ne-astatistics.vercel.app/cross

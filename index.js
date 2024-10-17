@@ -64,6 +64,7 @@ app.use('/js',express.static(__dirname+'/web'));
 app.get('/',(req,res)=>{
   res.redirect('/pivot')  
 })
+app.get('/favicon.ico', (req, res) => res.status(200))
 app.get('/register',(req,res)=>{
   generateHash("hi")
   res.sendFile(__dirname+"/web/register.html")
